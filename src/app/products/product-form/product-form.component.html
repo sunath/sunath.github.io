@@ -1,0 +1,38 @@
+
+
+
+  
+        <form [formGroup]="productFormControl" class="container">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Name</label>
+              <input type="text" class="form-control"  formControlName="name" aria-describedby="emailHelp" placeholder="Enter Product name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Price</label>
+              <input type="number" class="form-control" formControlName="price" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Quantity</label>
+                <input type="number" class="form-control" formControlName="quantity" id="exampleInputPassword1" placeholder="Password">
+              </div>
+            
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Image Url</label>
+                <input type="text" class="form-control" formControlName="imageUrl" aria-describedby="emailHelp" placeholder="Enter Product Url">
+              </div>
+
+              <!-- <div class="mb-3">
+                <label for="formFile" class="form-label">Image</label>
+                <input class="form-control" formControlName="image" type="file" id="formFile">
+              </div> -->
+
+
+            <button type="submit" class="btn btn-primary" (click)="save($event)">Submit</button>
+            <button type="submit" class="btn btn-danger" *ngIf="id" (click)="delete($event)">Delete</button>
+          </form>
+        
+
+
+
+

@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import UserCreateModel from 'src/app/models/user-create-model';
 import { UserService } from 'src/app/services/user.service';
 import { textChangeRangeIsUnchanged } from 'typescript';
 import EmailUniqueValidator from '../common-validators/email-check';
 import PasswordUniqueCheck from '../common-validators/password-check';
 import UsernameUniqueValidator from '../common-validators/username-check';
+import { LoginUser } from '../user/user-actions';
 
 @Component({
   selector: 'app-signup',
@@ -29,13 +32,17 @@ export class SignupComponent implements OnInit {
     private userService:UserService,
     usernameUniqueValidator:UsernameUniqueValidator,
     emailUniqueValidator:EmailUniqueValidator,
-    passwordUniqueCheck:PasswordUniqueCheck) {
+    passwordUniqueCheck:PasswordUniqueCheck,
+    private store:Store<{userState:any}>,
+    private router:Router) {
 
       this.signUpForm = fb.group({
         email:fb.control('',[Validators.required,Validators.email],[emailUniqueValidator.validate.bind(this)]),
         username:fb.control('',[Validators.required,Validators.minLength(3)],[usernameUniqueValidator.validate.bind(this)]),
         password:fb.control('',[Validators.required,Validators.minLength(8)],[passwordUniqueCheck.validate.bind(this)])
       })
+
+     
 
       
 
@@ -44,9 +51,6 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  sayHello(){
-    console.log("Helo")
-  }
 
 
 
@@ -89,13 +93,13 @@ export class SignupComponent implements OnInit {
     this.userService.createUser(data).then(e => {
       this.isSubmitted  = false;
       const returnData = e as any;
-      console.log(returnData)
-      console.log(returnData.username)
-      console.log(returnData.password)
       this.userService.loginUser({username:returnData.username,password:returnData.password}).then(e => {
-        const data = e as any;
-        console.log(data)
-        localStorage.setItem("loginKey",data.token)
+        localStorage.setItem("loginkey",e.token)
+        this.store.dispatch(LoginUser({newDetails:e.token}))
+        this.userService.user()
+        // const url = this.route.snapshot.queryParamMap.get("returnUrl")
+
+        this.router.navigate(["/"])
       })
     },s => {
       console.log(s)

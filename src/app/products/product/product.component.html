@@ -1,0 +1,24 @@
+
+
+
+
+    <div class="single-product-item">
+        <div class="product-image">
+            <a><img [src]="product.imageUrl" alt=""></a>
+        </div>
+        <h3>{{product.name}}</h3>
+        <p class="product-price"><span>1 UNIT</span> {{product.price}}$ </p>
+        <a  class="cart-btn" (click)="change(1)" *ngIf="!myCartProduct" ><i class="fas fa-shopping-cart"></i>Add to cart</a>
+        <div class="row" *ngIf="myCartProduct">
+            <div class="col-lg-4">
+                <a  class="cart-btn" (click)="change(-1)"><i class="fas fa-shopping-cart"></i>-</a>
+            </div>
+            <div class="col-lg-4">
+                <a>{{myCartProduct.quantity }} items</a>
+            </div>
+            <div class="col-lg-4">
+                <a  class="cart-btn" (click)="change(1)"><i class="fas fa-shopping-cart"></i>+</a>
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ng-shop-a29df": {
+      "hosting": {
+        "ng-shop": [
+          "ng-shop-a29df"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ng-shop-a29df"
+  }
+}

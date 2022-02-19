@@ -1,0 +1,36 @@
+
+
+    <div class="loader" *ngIf="!products">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+
+<div class="container" *ngIf="products">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products;">
+            <th scope="row">{{product.id}}</th>
+            <td>{{product.name}}</td>
+            <td>{{product.quantity}}</td>
+            <td>{{product.price}}</td>
+            <td><button class="btn btn-warning" routerLink="/admin/products/{{product.id}}">Change</button></td>
+          </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th><a class="btn btn-primary" routerLink="/admin/products/new">Add new</a></th>
+            </tr>
+        </tfoot>
+      </table>
+</div>

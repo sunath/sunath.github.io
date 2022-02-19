@@ -25,6 +25,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastComponent } from './etc/toast/toast.component';
 import { ToastsContainer } from './etc/toast/toast.conatiner.component';
+import {StoreModule} from "@ngrx/store";
+import { userReducer } from './auth/user/user-reducer';
+import { UserGuard } from './guards/user.guard';
+import { ShopComponent } from './shop/shop.component';
+import { ProductFormComponent } from './products/product-form/product-form.component';
+import { AdminProductsComponent } from './products/admin-products/admin-products.component';
+import { ProductComponent } from './products/product/product.component';
+import { CartReducer } from './cart.reducer';
+import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { AdminGuard } from './admin.guard';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +60,14 @@ import { ToastsContainer } from './etc/toast/toast.conatiner.component';
     SignupComponent,
     ToastComponent,
     ToastsContainer,
+    ShopComponent,
+    ProductFormComponent,
+    AdminProductsComponent,
+    ProductComponent,
+    CartComponent,
+    CheckoutComponent,
+    MyOrdersComponent,
+    AdminOrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +76,8 @@ import { ToastsContainer } from './etc/toast/toast.conatiner.component';
 
     ReactiveFormsModule,
     HttpClientModule,
+
+    StoreModule.forRoot({userState:userReducer,cartState:CartReducer}),
 
 
     RouterModule.forRoot([
@@ -69,8 +92,84 @@ import { ToastsContainer } from './etc/toast/toast.conatiner.component';
 
       },
       {
-        path:"",
+        path:"shop",
+        component:ShopComponent,
+        canActivate:[
+          UserGuard
+        ]
+      },
+      {
+        path:"cart",
+        component:CartComponent,
+        canActivate:[
+          UserGuard
+        ]
+      },
+
+      {
+        path:"checkout",
+        component:CheckoutComponent,
+        canActivate:[
+          UserGuard
+        ]
+      },
+
+
+      {
+        path:"my-orders",
+        component:MyOrdersComponent,
+        canActivate:[
+          UserGuard
+        ]
+      },
+      {
+        path:"my-orders",
+        component:MyOrdersComponent,
+        canActivate:[
+          UserGuard
+        ]
+      },
+      {
+        path:"admin/orders",
+        component:AdminOrdersComponent,
+        canActivate:[
+          UserGuard,
+          AdminGuard
+        ]
+      },
+      {
+        path:"admin/products/new",
+        component:ProductFormComponent,
+        canActivate:[
+          UserGuard,
+          AdminGuard
+        ]
+      },
+
+      {
+        path:"admin/products/:id",
+        component:ProductFormComponent,
+        canActivate:[
+          UserGuard,
+          AdminGuard
+        ]
+      },
+      {
+        path:"admin/products",
+        component:AdminProductsComponent,
+        canActivate:[
+          UserGuard,
+          AdminGuard
+        ]
+      },
+
+      {
+        path:"home",
         component:HomeComponent
+      },
+      {
+        path:"",
+        component:AppComponent
       },
     ])
   ],

@@ -1,0 +1,57 @@
+
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Fresh and Organic</p>
+						<h1>Admin Orders</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+
+  <div class="space-eater"></div>
+
+
+    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" *ngFor="let item of orders">
+        <ngb-panel [title]="item.shippingDetails.name + ' / ' + item.checkOutAt ">
+          <ng-template ngbPanelContent>
+              <div class="details">
+                <div class="shipping-details">
+                  <h4>Shipping Details</h4>
+
+                  <div class="info">
+                    <h6>Name : {{item.shippingDetails.name}}</h6>
+                    <h6>Ordered At : {{item.checkOutAt}}</h6>
+                    <h6>Address : {{ item.shippingDetails.address }}</h6>
+                    <h6>Phone : {{ item.shippingDetails.phone }}</h6>
+                  </div>
+            
+                </div>
+                <div class="products-details">
+                  <h4>Ordered Item Details</h4>
+                  <div class="product-info" *ngFor="let product of item.productDetails">
+
+
+                      <h5 class="product-name">{{product.name}}:</h5>
+                      <div class="info">
+                        <h6>Price : {{ product.price }}</h6>
+                        <h6>ID : {{ product.id }}</h6>
+                        <h6>Quantity : {{ product.quantity }}</h6>
+                        <h6>Product Total Price : {{ (product.quantity * product.price)|currency:"USD":true}}</h6>
+                      </div>
+                     
+                  </div>
+                </div>
+              </div>
+          </ng-template>
+        </ngb-panel>
+       
+      </ngb-accordion>
+      
+
